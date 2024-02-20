@@ -6,7 +6,7 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:35:49 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/02/19 13:57:50 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/02/20 10:27:25 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,8 @@ static int	check_arg_content(int argc, char **argv)
 
 int	errors(int argc, char **argv)
 {
-	int	index;
 	int	err;
 
-	index = 1;
 	err = 0;
 	err = check_args(argc);
 	if (err != 0)

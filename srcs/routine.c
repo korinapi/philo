@@ -6,7 +6,7 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 11:54:21 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/02/19 17:45:59 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/02/20 11:30:17 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,13 @@
 void	ft_think(t_philosopher *philos)
 {
 	if (*philos->done == 0)
-	{
-		pthread_mutex_lock(philos->write_lock);
-		printf(NC "%d %s\n", philos->id, "is thinking");
-		pthread_mutex_unlock(philos->write_lock);
-	}
+		print_action("is thinking", philos, philos->id);
 }
 
 void	ft_sleep(t_philosopher *philos)
 {
 	if (*philos->done == 0)
-	{
-		pthread_mutex_lock(philos->write_lock);
-		printf(BLUE "%d %s\n", philos->id, "is sleeping");
-		pthread_mutex_unlock(philos->write_lock);
-	}
+		print_action("is sleeping", philos, philos->id);
 	ft_usleep(philos->time_to_sleep);
 }
 
@@ -45,11 +37,7 @@ void	ft_eat(t_philosopher *philos)
 		return ;
 	}
 	if (*philos->done == 0)
-	{
-		pthread_mutex_lock(philos->write_lock);
-		printf(YELLOW "%d %s\n", philos->id, "is eating");
-		pthread_mutex_unlock(philos->write_lock);
-	}
+		print_action("is eating", philos, philos->id);
 	pthread_mutex_lock(philos->meal_lock);
 	philos->last_meal_time = get_current_time();
 	philos->meals_eaten++;
@@ -66,7 +54,7 @@ int	ft_usleep(size_t ms)
 
 	start_time = get_current_time();
 	while ((get_current_time() - start_time) < ms)
-		usleep(300);
+		usleep(500);
 	return (0);
 }
 

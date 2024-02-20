@@ -6,7 +6,7 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:03:49 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/02/19 12:37:20 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/02/20 11:48:52 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ bool	check_if_all_ate(t_philosopher *philos)
 	}
 	if (finished_eating == philos[0].nb_of_philo)
 	{
-		pthread_mutex_lock(philos[0].death_lock);
+		pthread_mutex_lock(philos[0].dead_lock);
 		*philos->done = 1;
-		pthread_mutex_unlock(philos[0].death_lock);
+		pthread_mutex_unlock(philos[0].dead_lock);
 		return (true);
 	}
 	return (false);
@@ -61,10 +61,10 @@ bool	check_if_dead(t_philosopher *philos)
 	{
 		if (philo_is_dead(&philos[i], philos[i].time_to_die))
 		{
-			pthread_mutex_lock(philos[0].death_lock);
+			pthread_mutex_lock(philos[0].dead_lock);
 			*philos->done = 1;
-			pthread_mutex_unlock(philos[0].death_lock);
-			printf(RED "%d %s\n", philos->id, "died");
+			pthread_mutex_unlock(philos[0].dead_lock);
+			printf(RED "%d %s \n", philos->id, "is dead");
 			return (true);
 		}
 		i++;

@@ -6,11 +6,25 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:34:43 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/02/19 17:26:50 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/02/20 11:15:47 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philos.h"
+
+void	print_action(char *str, t_philosopher *philo, int id)
+{
+	time_t time;
+	pthread_mutex_lock (philo->write_lock);
+	time = get_current_time() - philo->start_time;
+	if (!dead_loop(philo) && ft_strcmp(str, "is thinking") == 0)
+		printf(GREEN "%zu %d %s \n", time, id, str);
+	if (!dead_loop(philo) && ft_strcmp(str, "is sleeping") == 0)
+		printf(YELLOW "%zu %d %s \n", time, id, str);
+	if (!dead_loop(philo) && ft_strcmp(str, "is eating") == 0)
+		printf(BLUE "%zu %d %s \n", time, id, str);
+	pthread_mutex_unlock(philo->write_lock);
+}
 
 int	main(int argc, char **argv)
 {
@@ -28,7 +42,6 @@ int	main(int argc, char **argv)
 		initialize_forks(forks, philo_atoi(argv[1]));
 		initialize_philosophers(philos, &table, forks, argv);
 		create_observer_thread(&table, forks);
-		create_philosopher_threads(&table, forks);
 		delete_all(NULL, &table, forks);
 	}
 	return (0);

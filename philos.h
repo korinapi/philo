@@ -6,7 +6,7 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:05:40 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/02/19 17:45:38 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/02/20 11:48:27 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_philosopher
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*write_lock;
-	pthread_mutex_t	*death_lock;
+	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*meal_lock;
 	int				min_meals_to_eat;
 	int				*done;
@@ -64,7 +64,7 @@ typedef struct s_dining_table
 {
 	t_philosopher	*philosophers;
 	int				death_flag;
-	pthread_mutex_t	death_lock;
+	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	meal_lock;
 }					t_dining_table;
@@ -108,5 +108,6 @@ void				delete_all(char *str, t_dining_table *table,
 						pthread_mutex_t *forks);
 
 int					philo_atoi(char *str);
+void	print_action(char *str, t_philosopher *philo, int id);
 
 #endif

@@ -6,13 +6,13 @@
 #    By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/28 12:47:45 by cpuiu             #+#    #+#              #
-#    Updated: 2024/02/19 17:26:01 by cpuiu            ###   ########.fr        #
+#    Updated: 2024/02/20 11:00:19 by cpuiu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -I./Libft -I./include
+CFLAGS = -Wall -Wextra -Werror -I./Libft -I./include -g -pthread
 
 LIBFTDIR = ./Libft
 LIBFT = $(LIBFTDIR)/libft.a 
