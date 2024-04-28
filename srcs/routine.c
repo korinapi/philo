@@ -6,46 +6,36 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 11:54:21 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/02/20 11:30:17 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/02/21 20:55:28 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philos.h"
 
-void	ft_think(t_philosopher *philos)
-{
-	if (*philos->done == 0)
-		print_action("is thinking", philos, philos->id);
-}
-
-void	ft_sleep(t_philosopher *philos)
-{
-	if (*philos->done == 0)
-		print_action("is sleeping", philos, philos->id);
-	ft_usleep(philos->time_to_sleep);
-}
-
 void	ft_eat(t_philosopher *philos)
 {
-	pthread_mutex_lock(philos->right_fork);
+	pthread_mutex_lock(philos->left_fork);
+		print_action("has taken a fork", philos, philos->id);
 	if (philos->nb_of_philo > 1)
-		pthread_mutex_lock(philos->left_fork);
+	{
+		pthread_mutex_lock(philos->right_fork);
+		print_action("has taken a fork", philos, philos->id);
+	}
 	else
 	{
 		ft_usleep(philos->time_to_die);
 		pthread_mutex_unlock(philos->right_fork);
 		return ;
 	}
-	if (*philos->done == 0)
-		print_action("is eating", philos, philos->id);
+	print_action("is eating", philos, philos->id);
 	pthread_mutex_lock(philos->meal_lock);
 	philos->last_meal_time = get_current_time();
 	philos->meals_eaten++;
 	pthread_mutex_unlock(philos->meal_lock);
 	ft_usleep(philos->time_to_eat);
 	philos->eating_flag = 0;
-	pthread_mutex_unlock(philos->left_fork);
 	pthread_mutex_unlock(philos->right_fork);
+	pthread_mutex_unlock(philos->left_fork);
 }
 
 int	ft_usleep(size_t ms)
@@ -54,7 +44,7 @@ int	ft_usleep(size_t ms)
 
 	start_time = get_current_time();
 	while ((get_current_time() - start_time) < ms)
-		usleep(500);
+		usleep(1000);
 	return (0);
 }
 

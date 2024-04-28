@@ -6,7 +6,7 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:35:49 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/02/20 10:27:25 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/02/21 16:43:30 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	check_args(int argc)
 {
 	if (argc != 5 && argc != 6)
 	{
-		printf("Number of arguments invalid. Please provide 4 or 5 arguments");
+		write(1, "Number of arguments invalid. Please provide 4 or 5 arguments\n", 60);
 		return (1);
 	}
 	return (0);
@@ -37,7 +37,7 @@ static int	check_arg_content(int argc, char **argv)
 		{
 			if (!(ft_isdigit(argv[index][i])))
 			{
-				printf("The arguments has to contain only positive numbers\n");
+				write(1, "The arguments has to contain only positive numbers\n", 52);
 				return (1);
 			}
 			i++;
@@ -59,5 +59,10 @@ int	errors(int argc, char **argv)
 		err = check_arg_content(argc, argv);
 	if (err != 0)
 		return (1);
+	if (philo_atoi(argv[ARG_TIME_TO_DIE]) < philo_atoi(argv[ARG_TIME_TO_EAT]))
+	{
+		write (1, "not enought time to die\n", 24);
+		return (1);
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 11:38:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/02/20 11:49:01 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/02/21 20:51:00 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,6 @@ int	create_observer_thread(t_dining_table *table, pthread_mutex_t *forks)
 	return (0);
 }
 
-// int	create_philosopher_threads(t_dining_table *table, pthread_mutex_t *forks)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < table->philosophers[0].nb_of_philo)
-// 	{
-// 		if (pthread_create(&table->philosophers[i].thread, NULL, routine,
-// 				&table->philosophers[i]) != 0)
-// 			return (delete_all("ERROR Creating Philosopher Threads", table,
-// 					forks), -1);
-// 		i++;
-// 	}
-// 	while (i < table->philosophers[0].nb_of_philo)
-// 	{
-// 		if (pthread_join(table->philosophers[i].thread, NULL) != 0)
-// 			return (delete_all("ERROR Joining Philosopher Threads", table,
-// 					forks), -1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
 void	*routine(void *ptr)
 {
 	t_philosopher	*philos;
@@ -71,8 +48,9 @@ void	*routine(void *ptr)
 	while (!dead_loop(philos))
 	{
 		ft_eat(philos);
-		ft_sleep(philos);
-		ft_think(philos);
+		print_action("is sleeping", philos, philos->id);
+		ft_usleep(philos->time_to_sleep);
+		print_action("is thinking", philos, philos->id);
 	}
 	return (NULL);
 }
