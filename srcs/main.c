@@ -6,7 +6,7 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:34:43 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/02/21 20:57:21 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/05/02 10:48:53 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,20 @@
 
 void	print_action(char *str, t_philosopher *philo, int id)
 {
-	time_t time;
-	pthread_mutex_lock (philo->write_lock);
+	time_t	time;
+
+	pthread_mutex_lock(philo->write_lock);
 	time = get_current_time() - philo->start_time;
 	if (!dead_loop(philo) && ft_strcmp(str, "is thinking") == 0)
-		printf(BLUE"%zu %d %s\n", time, id, str);
+		printf(BLUE "%zu %d %s\n", time, id, str);
 	if (!dead_loop(philo) && ft_strcmp(str, "is sleeping") == 0)
-		printf(GREEN"%zu %d %s\n", time, id, str);
+		printf(GREEN "%zu %d %s\n", time, id, str);
 	if (!dead_loop(philo) && ft_strcmp(str, "is eating") == 0)
-		printf(YELLOW"%zu %d %s\n", time, id, str);
+		printf(YELLOW "%zu %d %s\n", time, id, str);
 	if (!dead_loop(philo) && ft_strcmp(str, "has taken a fork") == 0)
-		printf(WHITE"%zu %d %s\n", time, id, str);
+		printf(WHITE "%zu %d %s\n", time, id, str);
 	if (ft_strcmp(str, "died") == 0)
-		printf(RED"%zu %d %s\n", time, id, str);
+		printf(RED "%zu %d %s\n", time, id, str);
 	pthread_mutex_unlock(philo->write_lock);
 }
 

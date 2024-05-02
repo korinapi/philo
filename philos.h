@@ -6,7 +6,7 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:05:40 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/02/21 20:31:17 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/05/02 11:31:05 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include <errno.h>
 
 # define NC "\e[0m"
 # define BLACK "\e[0;30m"
@@ -81,8 +82,6 @@ void				table_init(t_dining_table *table, t_philosopher *philos);
 // threads
 int					create_observer_thread(t_dining_table *table,
 						pthread_mutex_t *forks);
-int					create_philosopher_threads(t_dining_table *table,
-						pthread_mutex_t *forks);
 void				*routine(void *ptr);
 int					dead_loop(t_philosopher *philos);
 
@@ -98,7 +97,6 @@ void				*monitor(void *ptr);
 bool				check_if_all_ate(t_philosopher *philos);
 bool				check_if_dead(t_philosopher *philos);
 bool				philo_is_dead(t_philosopher *philos, size_t time_to_die);
-// void	print_message(char *str, t_philosopher *philos, int id);
 
 // utils
 
@@ -108,6 +106,6 @@ void				delete_all(char *str, t_dining_table *table,
 						pthread_mutex_t *forks);
 
 int					philo_atoi(char *str);
-void	print_action(char *str, t_philosopher *philo, int id);
+void				print_action(char *str, t_philosopher *philo, int id);
 
 #endif

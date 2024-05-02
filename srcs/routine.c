@@ -6,7 +6,7 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 11:54:21 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/02/21 20:55:28 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/05/02 11:24:13 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,12 @@
 
 void	ft_eat(t_philosopher *philos)
 {
+	pthread_mutex_lock(philos->right_fork);
+	print_action("has taken a fork", philos, philos->id);
 	pthread_mutex_lock(philos->left_fork);
-		print_action("has taken a fork", philos, philos->id);
-	if (philos->nb_of_philo > 1)
-	{
-		pthread_mutex_lock(philos->right_fork);
-		print_action("has taken a fork", philos, philos->id);
-	}
-	else
-	{
-		ft_usleep(philos->time_to_die);
-		pthread_mutex_unlock(philos->right_fork);
-		return ;
-	}
+	print_action("has taken a fork", philos, philos->id);
 	print_action("is eating", philos, philos->id);
+	philos->eating_flag = 1;
 	pthread_mutex_lock(philos->meal_lock);
 	philos->last_meal_time = get_current_time();
 	philos->meals_eaten++;
@@ -40,11 +32,13 @@ void	ft_eat(t_philosopher *philos)
 
 int	ft_usleep(size_t ms)
 {
-	size_t	start_time;
+	struct timespec	req;
+	struct timespec	rem;
 
-	start_time = get_current_time();
-	while ((get_current_time() - start_time) < ms)
-		usleep(1000);
+	req.tv_sec = ms / 1000;
+	req.tv_nsec = (ms % 1000) * 1000000L;
+	while (nanosleep(&req, &rem) && errno == EINTR)
+		req = rem;
 	return (0);
 }
 
@@ -54,7 +48,7 @@ size_t	get_current_time(void)
 
 	if (gettimeofday(&time, NULL) == -1)
 	{
-		ft_putendl_fd("ERROR getting the time", 1);
+		ft_putendl_fd("ERROR getting the time", 2);
 		exit(EXIT_FAILURE);
 	}
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
