@@ -6,7 +6,7 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 12:03:49 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/05/02 11:17:42 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/05/02 21:12:36 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*monitor(void *ptr)
 	{
 		if (check_if_dead(philos) || check_if_all_ate(philos))
 			break ;
-		usleep(1000);
+		usleep(50);
 	}
 	return (ptr);
 }

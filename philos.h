@@ -6,7 +6,7 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:05:40 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/05/02 11:31:05 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/05/02 21:37:12 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 # define PHILOS_H
 
 # include "Libft/libft.h"
+# include <errno.h>
 # include <pthread.h>
 # include <stdbool.h>
+# include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
-# include <errno.h>
-
 # define NC "\e[0m"
 # define BLACK "\e[0;30m"
 # define RED "\e[0;31m"
@@ -100,8 +100,8 @@ bool				philo_is_dead(t_philosopher *philos, size_t time_to_die);
 
 // utils
 
-size_t				get_current_time(void);
-int					ft_usleep(size_t ms);
+int					ft_usleep(int time);
+int					get_current_time(void);
 void				delete_all(char *str, t_dining_table *table,
 						pthread_mutex_t *forks);
 

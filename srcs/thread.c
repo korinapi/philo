@@ -6,7 +6,7 @@
 /*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 11:38:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/05/02 11:30:07 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/05/02 21:41:05 by cpuiu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	*routine(void *ptr)
 		print_action("is sleeping", philos, philos->id);
 		ft_usleep(philos->time_to_sleep);
 		print_action("is thinking", philos, philos->id);
-		ft_usleep(philos->time_to_eat);
+		ft_usleep(philos->time_to_sleep);
 	}
 	return (NULL);
 }
